@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.febro.material3topppbartheme.ui.theme.Material3TopÁppBarThemeTheme
@@ -30,10 +31,23 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
+                    // exp: https://youtu.be/EqCvUETekjk?t=703s
+                    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
                     // container for components
                     Scaffold(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .nestedScroll(scrollBehavior.nestedScrollConnection),
                         topBar = {
+                            // exp: https://youtu.be/EqCvUETekjk?t=900s
+                            // for long text, text goes beneath ctas
+                            // MediumTopAppBar
+
+                            // centers the title
+//                            CenterAlignedTopAppBar() {
+//
+//                            }
                             TopAppBar(
                                 title = {
                                     Text(text = "My notes")
@@ -56,7 +70,9 @@ class MainActivity : ComponentActivity() {
                                     IconButton(onClick = { /*TODO*/ }) {
                                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit notes")
                                     }
-                                }
+                                },
+                                scrollBehavior = scrollBehavior
+
                             )
                         },
                         
